@@ -13,7 +13,12 @@
   <h1><a href="/">Blog</a></h1>
 </div>
 <div class="content container">
-  <p align="right">{{ user }}</p>
+  {% if user.is_anonymous %}
+    <p align="right"><a href="/login/" class="btn btn-default btn-lg active" role="button">Login</a></p>
+  {% else %}
+    <p align="right"><strong>User: {{ user }}</strong></p>
+    <p align="right"><a href="/logout/" class="btn btn-default btn-lg active" role="button">Logout</a></p>
+  {% endif %}
   <div class="row">
     <div class="col-md-8">
       {% block content %}
