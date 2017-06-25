@@ -1,10 +1,33 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.shortcuts import render, redirect
 
 from .models import Post
 # from .forms import PostForm
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+
+            user = form.save()
+            # user.user_set.add()
+            # Group.objects.get(name='blog').user_set.add(user)
+            user.groups.add(Group.objects.get(name='blog'))
+
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'blog/signup.html', {'form': form})
 
 
 class PostList(ListView):

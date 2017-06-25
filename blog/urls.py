@@ -14,6 +14,8 @@ urlpatterns = [
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
 
+    url(r'^signup/$', views.signup, name='signup'),
+
     # url(r'^$', views.post_list, name='post_list'),
     url(r'^$', views.PostList.as_view(), name='post_list'),
 

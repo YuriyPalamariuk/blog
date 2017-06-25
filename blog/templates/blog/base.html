@@ -10,14 +10,15 @@
 <body>
 <div class="page-header">
   <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
-  <h1><a href="/">Blog</a></h1>
+  <h1><a href="{% url 'post_list' %}">Blog</a></h1>
 </div>
 <div class="content container">
   {% if user.is_anonymous %}
-    <p align="right"><a href="/login/" class="btn btn-default btn-lg active" role="button">Login</a></p>
+    <p align="right"><a href="{% url 'login' %}" class="btn btn-default btn-lg active" role="button">Login</a></p>
+    <p align="right"><a href="{% url 'signup' %}" class="btn btn-default btn-lg active" role="button">Signup</a></p>
   {% else %}
-    <p align="right"><strong>User: {{ user }}</strong></p>
-    <p align="right"><a href="/logout/" class="btn btn-default btn-lg active" role="button">Logout</a></p>
+    <p align="right"><strong>Login as: {{ user }}</strong></p>
+    <p align="right"><a href="{% url 'logout' %}" class="btn btn-default btn-lg active" role="button">Logout</a></p>
   {% endif %}
   <div class="row">
     <div class="col-md-8">
